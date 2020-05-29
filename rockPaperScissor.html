@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS Games</title>
+</head>
+<body>
+    
+    <div>
+        <div class="score"></div>
+        <div class="message"></div>
+
+        <button type="button">Rock</button>
+        <button type="button">Paper</button>
+        <button type="button">Scissor</button>
+
+    </div>
+
+
+    <script>
+        // select the elements
+        const message = document.querySelector('.message');
+        const score = document.querySelector('.score');
+        const buttons = document.querySelectorAll('button');
+        let winner = [0, 0];
+        
+        console.log(buttons);
+        
+        for (let i=0; i<buttons.length; i++) {
+            buttons[i].addEventListener('click', playGame);
+        }
+
+        function playGame(e) {
+            let playerSelection = e.target.innerText;
+            let computerSelection = Math.random();
+            
+            if(computerSelection < 0.34) {
+                computerSelection = 'Rock';
+            } else if (computerSelection <= 0.67) {
+                computerSelection = 'Paper';
+            } else {
+                computerSelection = 'Scissor';
+            }
+            console.log(playerSelection, computerSelection);
+            let result = checkWinner(playerSelection, computerSelection);
+            console.log(result);
+            
+            if(result == 'Player') {
+                result += 'Wins!';
+                winner[0]++;
+            } else if (result == 'Computer') {
+                result += 'Wins!';
+                winner[1]++;
+            } else {
+                result += 'results in a tie match';
+            }
+
+            score.innerHTML = "Player_1 : " + winner[0] + " .... Player_2 : " + winner[1];
+            messager(playerSelection + ' vs ' + computerSelection + "<br><b>" + result + "</br>");
+
+            function messager(mes) {
+                message.innerHTML = mes;
+            }
+
+        }
+
+        function checkWinner(pl, co) {
+            if (pl===co) {
+                return 'Draw';
+            } 
+            if (pl==='Rock') {
+                if (co==='Paper') {
+                    return 'Computer';
+                } else {
+                    return 'Player';
+                }
+            }
+            if (pl==='Paper') {
+                if(co==='Scissor') {
+                    return 'Computer';
+                } else {
+                    return 'Player';
+                }
+            }
+            if (pl === 'Scissor') {
+                if (co === 'Rock') {
+                    return 'Computer';
+                }
+                else {
+                    return "Player";
+                }
+            }
+        }    
+
+    </script>
+
+</body>
+
+</html>
